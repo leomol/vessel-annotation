@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="lib/annotation.min.js"></script>
+		<link rel="stylesheet" href="lib/annotation.css">
+		<title>Vessel annotation</title>
+	</head>
+	
+	<body oncontextmenu="return false;" class="stop-scrolling">
+		<table>
+			<col width="450">
+			<col width="450">
+			<tr>
+				<td valign="top">
+					<h2>Outlining instructions</h2>
+					<ul>
+						<li>Outline the edge of the big blob at the center of each image (including the first image, which you can use as an example).</li>
+						<li>If half of the edge is blurry, assume a circular or an elliptical shape.</li>
+						<li>Don't include bright extrusions or bright dots right next to the main blob.</li>
+						<li>If there is a second crescent shape around the blob, then you can include it if laying on top of the blob but don't include it if there is space between the blob and the crescent shape.</li>
+						<li>Even if the system accepts your submission, approval of your work will be decided later (2+ weeks) by a human, so please read and follow the instructions carefully so that your and our efforts are use effectively.</li>
+						<li>Note for reviewers: this is a standalone version of the software for demonstration purposes only which prompts to load images and downloads the results after completing the task. The crowd-source version presents the user with those images and stores data automatically in the server.</li>
+					</ul>
+				</td>
+				<td valign="top">
+					<h2>Controls</h2>
+					<ul>
+						<li>This task requires using a computer mouse with a scroll button.</li>
+						<li>Click on Browse to select a folder of images.</li>
+						<li>To change to another image use the left/right arrow keys (faster) or click on Previous/Next.</li>
+						<li>To move individual markers, click and drag each individual marker.</li>
+						<li>To push markers with the circle tool, click in an empty area and drag the mouse.</li>
+						<li>To move markers <b>enclosed</b> by the circle tool, shift+click and drag the mouse.</li>
+						<li>To change the tool size, scroll down/up.</li>
+						<li>To reset the marker arrangement, right-click on the image.</li>
+						<li>The 50s video tutorial walks you thru these steps.</li>
+					</ul>
+					
+					<h2>Test data</h2>
+					<p>An example data set can be found <a href="https://github.com/leomol/vessel-annotation/raw/master/standalone/test-data.zip">here</a>. To use it, first download and extract the images, then click on Browse and select the folder.</p>
+				</td>
+			</tr>
+			<tr>
+				<td valign="bottom">
+					<div class="container" id="mainDiv">
+						<form id="form" method="post">
+						</form>
+					</div>
+					<input type="file" id="fileUpload" onchange="selectFolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+				</td>
+				<td valign="bottom">
+					<h2>Video tutorial</h2>
+					<div align='left'>
+						<iframe width="475" height="278" src="https://www.youtube.com/embed/0npMuGNfm9I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div id="message" class="message">
+		</div>
+		<div>
+			<button id="previous" style="z-index:+999;">Previous</button>
+			<button id="submit" style="z-index:+999;">Submit</button>
+			<button id="next" style="z-index:+999;">Next</button>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+button {
+	position: fixed;
+	height: 50px;
+	width: 100px;
+	border-style: solid;
+	border-color: white;
+	bottom: 0;
+}
+
+button#previous {
+	left: 0px;
+}
+
+button#submit {
+	left: 100px;
+}
+
+button#next {
+	left: 200px;
+}
+
+.static {
+	cursor: not-allowed;
+}
+
+.annotation {
+	cursor: move;
+}
+
+.message {
+	position: fixed;
+	padding: 20px;
+	color: white;
+	opacity: 1;
+	left: 0px;
+	bottom: 50px;
+	z-index: 999;
+}
