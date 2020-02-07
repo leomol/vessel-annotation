@@ -1,6 +1,6 @@
 /*
 	2019-03-23. LM.
-	2020-01-16. Last modified.
+	2020-02-07. Last modified.
 */
 
 // Pointers.
@@ -193,8 +193,8 @@ function Layer() {
 			layer.vertices[i].setAttribute("cx", job.vertexPoints[i][0]);
 			layer.vertices[i].setAttribute("cy", job.vertexPoints[i][1]);
 		}
-		recalculate(layer);
 		layer.setImage(job.image);
+		recalculate(layer);
 	}
 	
 	this.showVertices = function(show) {
@@ -227,11 +227,14 @@ function Job(file, name, onLoad) {
 		const image = job.image;
 		
 		image.onload = function() {
+			console.log("Image read!");
 			const image = this;
 			const job = image.job;
 			job.height = image.height;
 			job.width = image.width;
-			job.resetVertices();
+			const cx = 0.5 * image.width / image.height * layer.height;
+			const cy = 0.5 * layer.height
+			job.resetVertices(cx, cy);
 			onLoad(image.job);
 		}
 		image.src = reader.result;
@@ -263,16 +266,17 @@ function Job(file, name, onLoad) {
 		return Math.abs(area);
 	}
 	
-	this.resetVertices = function() {
+	this.resetVertices = function(cx, cy) {
+		console.log("Reset vertices. cx:" + cx + " cy:" + cy);
 		const job = this;
 		var angle = 0; 
 		var angleStep = 2 * Math.PI / nVertices;
 		for (var i = 0; i < nVertices; i++) {
-			var cx = polygonRadius * Math.cos(angle) + job.height / 2;
-			var cy = polygonRadius * Math.sin(angle) + job.height / 2;
+			const x = polygonRadius * Math.cos(angle) + cx;
+			const y = polygonRadius * Math.sin(angle) + cy;
 			angle += angleStep;
 			job.vertexMoved[i] = false;
-			job.vertexPoints[i] = [cx, cy];
+			job.vertexPoints[i] = [x, y];
 		}
 	}
 	
@@ -285,7 +289,8 @@ function Job(file, name, onLoad) {
 				area: job.getArea().round(0.1),
 				vertices: job.vertexPoints.permute().round(0.1),
 				polygon: job.polygonPoints.permute().round(0.1),
-				height: canvasHeight,
+				height: layer.height,
+				width: layer.width,
 				assignmentId: task.assignmentId,
 				hitId: task.hitId,
 				workerId: task.workerId
@@ -307,7 +312,6 @@ function onLoad(job) {
 	} else {
 		showMessage("Please wait. Loading " + nLoadedJobs + " of " + nJobs);
 	}
-	job.resetVertices();
 }
 
 function recalculate(layer) {
@@ -570,8 +574,8 @@ function pointerDown(evt) {
 	} else {
 		$("#submit").attr("disabled", true);
 		setMessage("");
-		job.resetVertices();
 		layer.setJob(job);
+		job.resetVertices(layer.width / 2, layer.height / 2);
 	}
 }
 
