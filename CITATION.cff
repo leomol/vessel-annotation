@@ -4,6 +4,7 @@ abstract: "Crowdsource annotation tool for outlining vascular cross-sections"
 message: If you use this software, please cite it.
 type: software
 version: 1.0.0
+doi: 10.5281/zenodo.7226676
 date-released: 2020-01-16
 repository-code: https://github.com/leomol/vessel-annotation
 authors:
